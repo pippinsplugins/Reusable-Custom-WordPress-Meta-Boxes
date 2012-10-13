@@ -264,5 +264,3 @@ class custom_add_meta_box {
 		} // end foreach
 	}
 }
-
-?>
