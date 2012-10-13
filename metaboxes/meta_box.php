@@ -50,7 +50,7 @@ class custom_add_meta_box {
 	function admin_head() {
 		global $post, $post_type;
 		
-		if (in_array($post_type, $this->page) && $this->js == true ) { 
+		if ( in_array( $post_type, $this->page ) && $this->js == true ) { 
 
 			echo '<script type="text/javascript">
 						jQuery(function() {';
@@ -84,8 +84,8 @@ class custom_add_meta_box {
 	}
 	
 	function add_box() {
-		foreach ($this->page as $page) {
-			add_meta_box( $this->id, $this->title, array( $this, 'meta_box_callback' ), $page, 'normal', 'high');
+		foreach ( $this->page as $page ) {
+			add_meta_box( $this->id, $this->title, array( $this, 'meta_box_callback' ), $page, 'normal', 'high' );
 		}
 	}
 	
@@ -96,7 +96,7 @@ class custom_add_meta_box {
 		
 		// Begin the field table and loop
 		echo '<table class="form-table meta_box">';
-		foreach ( $this->fields as $field) {
+		foreach ( $this->fields as $field ) {
 			
 			// get data for this field
 			extract( $field );
@@ -104,7 +104,7 @@ class custom_add_meta_box {
 				$desc = '<span class="description">' . $desc . '</span>';
 				
 			// get value of this field if it exists for this post
-			$meta = get_post_meta( $post->ID, $id, true);
+			$meta = get_post_meta( $post->ID, $id, true );
 			
 			// begin a table row with
 			echo '<tr>
@@ -225,7 +225,7 @@ class custom_add_meta_box {
 		global $post, $post_type;
 		
 		// verify nonce
-		if ( ! ( in_array($post_type, $this->page) && @wp_verify_nonce( $_POST[$post_type . '_meta_box_nonce'],  basename( __FILE__ ) ) ) )
+		if ( ! ( in_array( $post_type, $this->page ) && @wp_verify_nonce( $_POST[$post_type . '_meta_box_nonce'],  basename( __FILE__ ) ) ) )
 			return $post_id;
 		// check autosave
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
