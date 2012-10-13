@@ -108,18 +108,18 @@ class custom_add_meta_box {
 			
 			// begin a table row with
 			echo '<tr>
-					<th><label for="' . $id . '">' . $label . '</label></th>
+					<th><label for="' . $id . '">' . esc_html( $label ) . '</label></th>
 					<td>';
 					switch( $type ) {
 						// text
 						case 'text':
 							echo '<input type="text" name="' . $id . '" id="' . $id . '" value="' . esc_attr( $meta ) . '" size="30" />
-									<br />' . $desc;
+									<br />' . esc_html( $desc );
 						break;
 						// textarea
 						case 'textarea':
 							echo '<textarea name="' . $id . '" id="' . $id . '" cols="60" rows="4">' . esc_attr( $meta ) . '</textarea>
-									<br />' . $desc;
+									<br />' . esc_html( $desc );
 						break;
 						// checkbox
 						case 'checkbox':
@@ -130,22 +130,22 @@ class custom_add_meta_box {
 						case 'select':
 							echo '<select name="' . $id . '" id="' . $id . '">';
 							foreach ( $options as $option )
-								echo '<option ' . selected( esc_attr( $meta ), $option['value'], false ) . ' value="' . $option['value'] . '">' . $option['label'] . '</option>';
-							echo '</select><br />' . $desc;
+								echo '<option ' . selected( esc_attr( $meta ), $option['value'], false ) . ' value="' . $option['value'] . '">' . esc_html( $option['label'] ) . '</option>';
+							echo '</select><br />' . esc_html( $desc );
 						break;
 						// radio
 						case 'radio':
 							foreach ( $options as $option )
 								echo '<input type="radio" name="' . $id . '" id="' . $id . '-' . $option['value'] . '" value="' . $option['value'] . '" ' . checked( esc_attr( $meta ), $option['value'], false ) . ' />
 										<label for="' . $id . '-' . $option['value'] . '">' . $option['label'] . '</label><br />';
-							echo '' . $desc;
+							echo '' . esc_html( $desc );
 						break;
 						// checkbox_group
 						case 'checkbox_group':
 							foreach ( $options as $option )
 								echo '<input type="checkbox" value="' . $option['value'] . '" name="' . $id . '[]" id="' . $id . '-' . $option['value'] . '"' , is_array( $meta ) && in_array( $option['value'], $meta ) ? ' checked="checked"' : '' , ' /> 
 										<label for="' . $id . '-' . $option['value'] . '">' . $option['label'] . '</label><br />';
-							echo '' . $desc;
+							echo '' . esc_html( $desc );
 						break;
 						// tax_select
 						case 'tax_select':
@@ -156,8 +156,8 @@ class custom_add_meta_box {
 							foreach ( $terms as $term ) 
 									echo '<option value="' . $term->slug . '" ' . selected( $selected[0]->slug, $term->slug, false ) . '>' . $term->name . '</option>'; 
 							$taxonomy = get_taxonomy( $id);
-							echo '</select> &nbsp;<span class="description"><a href="' . get_bloginfo( 'url' ) . '/wp-admin/edit-tags.php?taxonomy=' . $id . '&post_type=' . $post_type . '">Manage ' . $taxonomy->label . '</a></span>
-								<br />' . $desc;
+							echo '</select> &nbsp;<span class="description"><a href="' . get_bloginfo( 'url' ) . '/wp-admin/edit-tags.php?taxonomy=' . urlencode( $id ) . '&post_type=' . urlencode( $post_type ) . '">Manage ' . $taxonomy->label . '</a></span>
+								<br />' . esc_html( $desc );
 						break;
 						// post_list
 						case 'post_list':
@@ -166,19 +166,19 @@ class custom_add_meta_box {
 							$posts = get_posts( array( 'post-type' => $post_type, 'posts_per_page' => 9999 ) );
 							foreach ( $posts as $item ) 
 									echo '<option value="' . $item->ID . '" ' . selected( intval( $meta ), $item->ID, false ) . '>' . $item->post_title . '</option>';
-							echo '<br />' . $desc;
+							echo '<br />' . esc_html( $desc );
 						break;
 						// date
 						case 'date':
 							echo '<input type="text" class="datepicker" name="' . $id . '" id="' . $id . '" value="' . esc_attr( $meta ) . '" size="30" />
-									<br />' . $desc;
+									<br />' . esc_html( $desc );
 						break;
 						// slider
 						case 'slider':
 						$value = $meta != '' ? intval( $meta ) : '0';
 							echo '<div id="' . $id . '-slider"></div>
 									<input type="text" name="' . $id . '" id="' . $id . '" value="' . $value . '" size="5" />
-									<br />' . $desc;
+									<br />' . esc_html( $desc );
 						break;
 						// image
 						case 'image':
@@ -189,7 +189,7 @@ class custom_add_meta_box {
 								$image = $image[0];
 							}				
 							echo	'<input name="' . $id . '" type="hidden" class="meta_box_upload_image" value="' . intval( $meta ) . '" />
-										<img src="' . $image . '" class="meta_box_preview_image" alt="" /><br />
+										<img src="' . esc_url( $image ) . '" class="meta_box_preview_image" alt="" /><br />
 											<input class="meta_box_upload_image_button button" type="button" rel="' . $post->ID . '" value="Choose Image" />
 											<small>&nbsp;<a href="#" class="meta_box_clear_image_button">Remove Image</a></small>
 											<br clear="all" />' . $desc;
@@ -212,7 +212,7 @@ class custom_add_meta_box {
 											<a class="meta_box_repeatable_remove button" href="#">-</a></li>';
 							}
 							echo '</ul>
-								<span class="description">' . $field['desc'] . '</span>';
+								<span class="description">' . esc_html( $field['desc'] ) . '</span>';
 						break;
 					} //end switch
 			echo '</td></tr>';
