@@ -156,7 +156,7 @@ class custom_add_meta_box {
 							foreach ( $terms as $term ) 
 									echo '<option value="' . $term->slug . '" ' . selected( $selected[0]->slug, $term->slug, false ) . '>' . $term->name . '</option>'; 
 							$taxonomy = get_taxonomy( $id);
-							echo '</select> &nbsp;<span class="description"><a href="' . get_bloginfo( 'url' ) . '/wp-admin/edit-tags.php?taxonomy=' . urlencode( $id ) . '&post_type=' . urlencode( $post_type ) . '">Manage ' . $taxonomy->label . '</a></span>
+							echo '</select> &nbsp;<span class="description"><a href="' . admin_url( '/edit-tags.php?taxonomy=' . urlencode( $id ) . '&post_type=' . urlencode( $post_type ) ) . '">Manage ' . $taxonomy->label . '</a></span>
 								<br />' . esc_html( $desc );
 						break;
 						// post_list
