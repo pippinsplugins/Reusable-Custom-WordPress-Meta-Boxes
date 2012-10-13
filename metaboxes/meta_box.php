@@ -130,7 +130,7 @@ class custom_add_meta_box {
 						case 'select':
 							echo '<select name="' . $id . '" id="' . $id . '">';
 							foreach ( $options as $option )
-								echo '<option' . selected( esc_attr( $meta ), $option['value'], false ) . ' value="' . $option['value'] . '">' . $option['label'] . '</option>';
+								echo '<option ' . selected( esc_attr( $meta ), $option['value'], false ) . ' value="' . $option['value'] . '">' . $option['label'] . '</option>';
 							echo '</select><br />' . $desc;
 						break;
 						// radio
@@ -154,7 +154,7 @@ class custom_add_meta_box {
 							$terms = get_terms( $id, 'get=all' );
 							$selected = wp_get_object_terms( $post->ID, $id );
 							foreach ( $terms as $term ) 
-									echo '<option value="' . $term->slug . '"' . selected( $selected[0]->slug, $term->slug, false ) . '>' . $term->name . '</option>'; 
+									echo '<option value="' . $term->slug . '" ' . selected( $selected[0]->slug, $term->slug, false ) . '>' . $term->name . '</option>'; 
 							$taxonomy = get_taxonomy( $id);
 							echo '</select> &nbsp;<span class="description"><a href="' . get_bloginfo( 'url' ) . '/wp-admin/edit-tags.php?taxonomy=' . $id . '&post_type=' . $post_type . '">Manage ' . $taxonomy->label . '</a></span>
 								<br />' . $desc;
@@ -165,7 +165,7 @@ class custom_add_meta_box {
 									<option value="">Select One</option>'; // Select One
 							$posts = get_posts( array( 'post-type' => $post_type, 'posts_per_page' => 9999 ) );
 							foreach ( $posts as $item ) 
-									echo '<option value="' . $item->ID . '"' . selected( intval( $meta ), $item->ID, false ) . '>' . $item->post_title . '</option>';
+									echo '<option value="' . $item->ID . '" ' . selected( intval( $meta ), $item->ID, false ) . '>' . $item->post_title . '</option>';
 							echo '<br />' . $desc;
 						break;
 						// date
