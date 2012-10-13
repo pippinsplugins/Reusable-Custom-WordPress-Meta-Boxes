@@ -1,4 +1,4 @@
-<?
+<?php
 
 $prefix = 'sample_';
 
