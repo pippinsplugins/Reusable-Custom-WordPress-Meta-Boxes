@@ -123,20 +123,20 @@ class custom_add_meta_box {
 						break;
 						// checkbox
 						case 'checkbox':
-							echo '<input type="checkbox" name="' . $id . '" id="' . $id . '" ' . checked( esc_attr( $meta ), true, false ) . ' value="1" />
+							echo '<input type="checkbox" name="' . $id . '" id="' . $id . '"' . checked( esc_attr( $meta ), true, false ) . ' value="1" />
 									<label for="' . $id . '">' . $desc . '</label>';
 						break;
 						// select
 						case 'select':
 							echo '<select name="' . $id . '" id="' . $id . '">';
 							foreach ( $options as $option )
-								echo '<option ' . selected( esc_attr( $meta ), $option['value'], false ) . ' value="' . $option['value'] . '">' . esc_html( $option['label'] ) . '</option>';
+								echo '<option' . selected( esc_attr( $meta ), $option['value'], false ) . ' value="' . $option['value'] . '">' . esc_html( $option['label'] ) . '</option>';
 							echo '</select><br />' . esc_html( $desc );
 						break;
 						// radio
 						case 'radio':
 							foreach ( $options as $option )
-								echo '<input type="radio" name="' . $id . '" id="' . $id . '-' . $option['value'] . '" value="' . $option['value'] . '" ' . checked( esc_attr( $meta ), $option['value'], false ) . ' />
+								echo '<input type="radio" name="' . $id . '" id="' . $id . '-' . $option['value'] . '" value="' . $option['value'] . '"' . checked( esc_attr( $meta ), $option['value'], false ) . ' />
 										<label for="' . $id . '-' . $option['value'] . '">' . $option['label'] . '</label><br />';
 							echo '' . esc_html( $desc );
 						break;
@@ -154,7 +154,7 @@ class custom_add_meta_box {
 							$terms = get_terms( $id, 'get=all' );
 							$selected = wp_get_object_terms( $post->ID, $id );
 							foreach ( $terms as $term ) 
-									echo '<option value="' . $term->slug . '" ' . selected( $selected[0]->slug, $term->slug, false ) . '>' . $term->name . '</option>'; 
+									echo '<option value="' . $term->slug . '"' . selected( $selected[0]->slug, $term->slug, false ) . '>' . $term->name . '</option>'; 
 							$taxonomy = get_taxonomy( $id);
 							echo '</select> &nbsp;<span class="description"><a href="' . admin_url( '/edit-tags.php?taxonomy=' . urlencode( $id ) . '&post_type=' . urlencode( $post_type ) ) . '">Manage ' . $taxonomy->label . '</a></span>
 								<br />' . esc_html( $desc );
@@ -165,7 +165,7 @@ class custom_add_meta_box {
 									<option value="">Select One</option>'; // Select One
 							$posts = get_posts( array( 'post-type' => $post_type, 'posts_per_page' => 9999 ) );
 							foreach ( $posts as $item ) 
-									echo '<option value="' . $item->ID . '" ' . selected( intval( $meta ), $item->ID, false ) . '>' . $item->post_title . '</option>';
+									echo '<option value="' . $item->ID . '"' . selected( intval( $meta ), $item->ID, false ) . '>' . $item->post_title . '</option>';
 							echo '<br />' . esc_html( $desc );
 						break;
 						// date
@@ -214,6 +214,7 @@ class custom_add_meta_box {
 							echo '</ul>
 								<span class="description">' . esc_html( $field['desc'] ) . '</span>';
 						break;
+						
 					} //end switch
 			echo '</td></tr>';
 		} // end foreach
